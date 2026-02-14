@@ -3,195 +3,206 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Candela ❤️</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<title>Mi Princesita 👑💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
-body {
-    margin: 0;
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #ff8ec7, #ff4fa3);
-    color: white;
-    text-align: center;
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    height:100vh;
+    overflow:hidden;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(-45deg,#ff9ecf,#ff4fa3,#ff85c1,#ffc1e3);
+    background-size:400% 400%;
+    animation:gradient 15s ease infinite;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+@keyframes gradient{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 
-.section {
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    transition: opacity 1.5s ease;
+.card{
+    width:90%;
+    max-width:420px;
+    padding:40px 25px;
+    border-radius:25px;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.15);
+    box-shadow:0 0 40px rgba(255,255,255,0.4);
+    text-align:center;
+    animation:fadeIn 2s ease;
+    position:relative;
+    z-index:2;
 }
 
-.hidden {
-    opacity: 0;
-    pointer-events: none;
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(30px);}
+    to{opacity:1;transform:translateY(0);}
 }
 
-h1 {
-    width: 85%;
-    font-weight: 300;
-    animation: fadeIn 2s ease-in-out;
+h1{
+    font-family:'Great Vibes',cursive;
+    font-size:2.2em;
+    margin-bottom:15px;
 }
 
-button {
-    padding: 15px 30px;
-    font-size: 1.2em;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    margin: 10px;
-    transition: 0.3s;
+.type{
+    min-height:90px;
+    font-size:0.95em;
+    line-height:1.6em;
 }
 
-#yes {
-    background-color: #ff007f;
-    color: white;
+.slider img{
+    width:100%;
+    border-radius:20px;
+    margin-top:20px;
+    box-shadow:0 0 25px rgba(255,255,255,0.6);
+    transition:opacity 1s ease;
 }
 
-#no {
-    background-color: white;
-    color: #ff007f;
+button{
+    padding:12px 25px;
+    font-size:1em;
+    border:none;
+    border-radius:40px;
+    margin:10px;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-img {
-    width: 70%;
-    max-width: 300px;
-    border-radius: 20px;
-    box-shadow: 0 0 30px rgba(255,255,255,0.6);
-    animation: zoom 8s infinite alternate;
+#yes{background:#ff007f;color:white;}
+#no{background:white;color:#ff007f;}
+
+canvas{
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
 }
 
-@keyframes fadeIn {
-    from {opacity:0;}
-    to {opacity:1;}
+.ring{
+    font-size:50px;
+    animation:ringPop 1s ease forwards;
 }
 
-@keyframes zoom {
-    from {transform: scale(1);}
-    to {transform: scale(1.1);}
-}
-
-.heart {
-    position: absolute;
-    animation: float 5s linear infinite;
-}
-
-@keyframes float {
-    0% {transform: translateY(100vh); opacity:1;}
-    100% {transform: translateY(-10vh); opacity:0;}
+@keyframes ringPop{
+    from{transform:scale(0);opacity:0;}
+    to{transform:scale(1);opacity:1;}
 }
 </style>
 </head>
 <body>
 
-<!-- Música -->
-<iframe id="music" width="0" height="0"
+<canvas id="fireworks"></canvas>
+
+<!-- Música ADMV -->
+<iframe width="0" height="0"
 src="https://www.youtube.com/embed/0CGVgAYJyjk?autoplay=1&loop=1&playlist=0CGVgAYJyjk"
-frameborder="0"
 allow="autoplay">
 </iframe>
 
-<!-- Secciones -->
-<div class="section" id="s1">
-    <h1>
-        Candela... ❤️<br><br>
-        Desde que te conocí todo es mucho más lindo.<br>
-        Mi vida mejoró.<br>
-        Cambié en todos los aspectos.<br>
-        Soy mejor persona gracias a vos.
-    </h1>
-</div>
+<div class="card" id="card">
+    <h1>Mi Princesita 👑💖</h1>
+    <div class="type" id="text"></div>
 
-<div class="section hidden" id="s2">
-    <h1>Porque vos sos mi lugar favorito en el mundo...</h1>
-    <!-- CAMBIAR ESTA IMAGEN POR UNA DE USTEDES -->
-    <img src="https://i.imgur.com/teamo.jfif" alt="Nosotros">
-</div>
+    <div class="slider">
+        <!-- CAMBIÁ ESTAS FOTOS -->
+        <img id="slide" src="teamo.jpg">
+    </div>
 
-<div class="section hidden" id="s3">
-    <h1>
-        Quiero seguir creciendo con vos.<br>
-        Quiero seguir riendo con vos.<br>
-        Quiero un futuro con vos.
-    </h1>
-</div>
-
-<div class="section hidden" id="s4">
-    <h1 id="countdown">3</h1>
-</div>
-
-<div class="section hidden" id="s5">
-    <h1>
-        Candela...<br><br>
-        ¿Querés ser mi San Valentín? 💖
-    </h1>
-    <div>
-        <button id="yes">SÍ 💘</button>
-        <button id="no">No 😢</button>
+    <div id="buttons" style="display:none;">
+        <button id="yes">Sí mi amor 💘</button>
+        <button id="no">No 🙈</button>
     </div>
 </div>
 
 <script>
-let sections = ["s1","s2","s3","s4","s5"];
-let current = 0;
+const message="Desde que te conocí todo es más lindo ✨\nMi vida mejoró completamente 💖\nSoy mejor persona gracias a vos 🥹\nQuiero un futuro entero con vos 👑💕\n\nMi princesita...\n¿Querés ser mi San Valentín? 💍💘";
 
-function nextSection(){
-    if(current < sections.length-1){
-        document.getElementById(sections[current]).classList.add("hidden");
-        current++;
-        document.getElementById(sections[current]).classList.remove("hidden");
+let i=0;
+function typeWriter(){
+    if(i<message.length){
+        document.getElementById("text").innerHTML += message.charAt(i)==="\n"?"<br>":message.charAt(i);
+        i++;
+        setTimeout(typeWriter,40);
+    } else {
+        document.getElementById("buttons").style.display="block";
     }
 }
+typeWriter();
 
-setTimeout(nextSection, 5000);
-setTimeout(nextSection, 10000);
-setTimeout(nextSection, 15000);
+/* SLIDER */
+const images=[
+"teamo.jpg",
+"teamo2.jpg",
+"teamo3.jpg"
+];
+let index=0;
+setInterval(()=>{
+    index=(index+1)%images.length;
+    document.getElementById("slide").src=images[index];
+},3000);
 
-let countdown = 3;
-setTimeout(()=>{
-    let interval = setInterval(()=>{
-        countdown--;
-        document.getElementById("countdown").innerText = countdown;
-        if(countdown === 0){
-            clearInterval(interval);
-            nextSection();
-        }
-    },1000);
-},15000);
-
-let yes = document.getElementById("yes");
-let no = document.getElementById("no");
-let size = 1;
+/* BOTONES */
+let yes=document.getElementById("yes");
+let no=document.getElementById("no");
+let scale=1;
 
 no.addEventListener("click",()=>{
-    size += 0.3;
-    yes.style.transform = "scale("+size+")";
-    no.style.position = "absolute";
-    no.style.top = Math.random()*80+"%";
-    no.style.left = Math.random()*80+"%";
-    no.style.transform = "scale(0.7)";
+    scale+=0.3;
+    yes.style.transform="scale("+scale+")";
+    no.style.position="absolute";
+    no.style.top=Math.random()*80+"%";
+    no.style.left=Math.random()*80+"%";
 });
 
 yes.addEventListener("click",()=>{
-    document.body.innerHTML = "<h1 style='margin-top:40vh;'>Sabía que ibas a decir que sí 💘<br>Te amo muchísimo Candela ❤️</h1>";
-    createHearts();
+    document.getElementById("card").innerHTML=
+    "<div class='ring'>💍</div><h1>Sabía que ibas a decir que sí 🥹💖</h1><p>Te amo muchísimo mi princesita 👑💕</p>";
+    startFireworks();
 });
 
-function createHearts(){
-    setInterval(()=>{
-        let heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML="💖";
-        heart.style.left=Math.random()*100+"vw";
-        heart.style.fontSize=(Math.random()*30+20)+"px";
-        document.body.appendChild(heart);
-    },300);
-}
-</script>
+/* FUEGOS ARTIFICIALES */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
+let particles=[];
+function startFireworks(){
+    setInterval(()=>{
+        for(let i=0;i<50;i++){
+            particles.push({
+                x:canvas.width/2,
+                y:canvas.height/2,
+                dx:(Math.random()-0.5)*6,
+                dy:(Math.random()-0.5)*6,
+                life:100
+            });
+        }
+    },500);
+}
+
+function animate(){
+    ctx.fillStyle="rgba(0,0,0,0.1)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    particles.forEach((p,i)=>{
+        p.x+=p.dx;
+        p.y+=p.dy;
+        p.life--;
+        ctx.fillStyle="pink";
+        ctx.fillRect(p.x,p.y,3,3);
+        if(p.life<=0) particles.splice(i,1);
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
 </body>
 </html>
