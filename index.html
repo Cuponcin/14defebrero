@@ -9,55 +9,67 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
+
 body{
-    height:100vh;
     overflow:hidden;
+    height:100vh;
     font-family:'Poppins',sans-serif;
-    background:linear-gradient(-45deg,#ff9ecf,#ff4fa3,#ff85c1,#ffc1e3);
-    background-size:400% 400%;
-    animation:gradient 15s ease infinite;
+    background:radial-gradient(circle at top,#ff9ecf,#ff4fa3 60%);
     display:flex;
     justify-content:center;
     align-items:center;
     color:white;
 }
-@keyframes gradient{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+
+/* INTRO */
+#intro{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9ecf,#ff4fa3);
+    font-size:1.4em;
+    text-align:center;
+    cursor:pointer;
+    z-index:5;
 }
 
+/* CARD */
 .card{
     width:90%;
     max-width:420px;
-    padding:40px 25px;
+    padding:35px 25px;
     border-radius:25px;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(20px);
     background: rgba(255,255,255,0.15);
-    box-shadow:0 0 40px rgba(255,255,255,0.4);
+    box-shadow:0 0 50px rgba(255,255,255,0.4);
     text-align:center;
-    animation:fadeIn 2s ease;
     position:relative;
-    z-index:2;
+    z-index:3;
+    display:none;
+    animation:fadeIn 2s ease;
 }
 
 @keyframes fadeIn{
-    from{opacity:0;transform:translateY(30px);}
+    from{opacity:0;transform:translateY(40px);}
     to{opacity:1;transform:translateY(0);}
 }
 
 h1{
     font-family:'Great Vibes',cursive;
     font-size:2.2em;
-    margin-bottom:15px;
+    margin-bottom:10px;
 }
 
 .type{
-    min-height:90px;
+    min-height:100px;
     font-size:0.95em;
     line-height:1.6em;
 }
 
+/* SLIDER */
 .slider img{
     width:100%;
     border-radius:20px;
@@ -66,6 +78,7 @@ h1{
     transition:opacity 1s ease;
 }
 
+/* BUTTONS */
 button{
     padding:12px 25px;
     font-size:1em;
@@ -79,31 +92,47 @@ button{
 #yes{background:#ff007f;color:white;}
 #no{background:white;color:#ff007f;}
 
+/* STARS */
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    animation:blink 2s infinite alternate;
+}
+@keyframes blink{
+    from{opacity:0.2;}
+    to{opacity:1;}
+}
+
+/* RING */
+.ring{
+    font-size:60px;
+    animation:ringPop 1s ease forwards;
+}
+@keyframes ringPop{
+    from{transform:scale(0);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
 canvas{
     position:absolute;
     top:0;
     left:0;
     z-index:1;
 }
-
-.ring{
-    font-size:50px;
-    animation:ringPop 1s ease forwards;
-}
-
-@keyframes ringPop{
-    from{transform:scale(0);opacity:0;}
-    to{transform:scale(1);opacity:1;}
-}
 </style>
 </head>
 <body>
 
+<div id="intro">
+💖 Tocá la pantalla para comenzar la sorpresa 👑✨
+</div>
+
 <canvas id="fireworks"></canvas>
 
-<!-- Música ADMV -->
-<iframe width="0" height="0"
-src="https://www.youtube.com/embed/0CGVgAYJyjk?autoplay=1&loop=1&playlist=0CGVgAYJyjk"
+<iframe id="music" width="0" height="0"
+src=""
 allow="autoplay">
 </iframe>
 
@@ -112,7 +141,6 @@ allow="autoplay">
     <div class="type" id="text"></div>
 
     <div class="slider">
-        <!-- CAMBIÁ ESTAS FOTOS -->
         <img id="slide" src="teamo.jpg">
     </div>
 
@@ -123,33 +151,47 @@ allow="autoplay">
 </div>
 
 <script>
-const message="Desde que te conocí todo es más lindo ✨\nMi vida mejoró completamente 💖\nSoy mejor persona gracias a vos 🥹\nQuiero un futuro entero con vos 👑💕\n\nMi princesita...\n¿Querés ser mi San Valentín? 💍💘";
+
+/* INTRO CLICK */
+document.getElementById("intro").addEventListener("click",()=>{
+    document.getElementById("intro").style.display="none";
+    document.getElementById("card").style.display="block";
+    document.getElementById("music").src="https://www.youtube.com/embed/lNBSdFw0t_w?autoplay=1&loop=1&playlist=lNBSdFw0t_w";
+});
+
+/* STARS */
+for(let i=0;i<80;i++){
+    let star=document.createElement("div");
+    star.classList.add("star");
+    star.style.top=Math.random()*100+"vh";
+    star.style.left=Math.random()*100+"vw";
+    document.body.appendChild(star);
+}
+
+/* TYPEWRITER */
+const message="Desde que llegaste a mi vida todo es más lindo ✨\nMe hiciste mejor persona 🥹\nMe enseñaste a amar más profundo 💖\nQuiero un futuro entero con vos 👑💕\n\nMi princesita...\n¿Querés ser mi San Valentín? 💍💘";
 
 let i=0;
 function typeWriter(){
     if(i<message.length){
-        document.getElementById("text").innerHTML += message.charAt(i)==="\n"?"<br>":message.charAt(i);
+        document.getElementById("text").innerHTML+=message.charAt(i)==="\n"?"<br>":message.charAt(i);
         i++;
         setTimeout(typeWriter,40);
-    } else {
+    }else{
         document.getElementById("buttons").style.display="block";
     }
 }
 typeWriter();
 
 /* SLIDER */
-const images=[
-"teamo.jpg",
-"teamo2.jpg",
-"teamo3.jpg"
-];
+const images=["teamo.jpg","teamo2.jpg","teamo3.jpg"];
 let index=0;
 setInterval(()=>{
     index=(index+1)%images.length;
     document.getElementById("slide").src=images[index];
-},3000);
+},3500);
 
-/* BOTONES */
+/* BUTTONS */
 let yes=document.getElementById("yes");
 let no=document.getElementById("no");
 let scale=1;
@@ -164,25 +206,25 @@ no.addEventListener("click",()=>{
 
 yes.addEventListener("click",()=>{
     document.getElementById("card").innerHTML=
-    "<div class='ring'>💍</div><h1>Sabía que ibas a decir que sí 🥹💖</h1><p>Te amo muchísimo mi princesita 👑💕</p>";
+    "<div class='ring'>💍</div><h1>Sabía que ibas a decir que sí 🥹💖</h1><p>Te amo con todo mi corazón mi princesita 👑💕</p>";
     startFireworks();
 });
 
-/* FUEGOS ARTIFICIALES */
+/* FIREWORKS */
 const canvas=document.getElementById("fireworks");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
-
 let particles=[];
+
 function startFireworks(){
     setInterval(()=>{
-        for(let i=0;i<50;i++){
+        for(let i=0;i<80;i++){
             particles.push({
                 x:canvas.width/2,
                 y:canvas.height/2,
-                dx:(Math.random()-0.5)*6,
-                dy:(Math.random()-0.5)*6,
+                dx:(Math.random()-0.5)*8,
+                dy:(Math.random()-0.5)*8,
                 life:100
             });
         }
@@ -190,7 +232,7 @@ function startFireworks(){
 }
 
 function animate(){
-    ctx.fillStyle="rgba(0,0,0,0.1)";
+    ctx.fillStyle="rgba(0,0,0,0.15)";
     ctx.fillRect(0,0,canvas.width,canvas.height);
     particles.forEach((p,i)=>{
         p.x+=p.dx;
@@ -203,6 +245,7 @@ function animate(){
     requestAnimationFrame(animate);
 }
 animate();
+
 </script>
 </body>
 </html>
