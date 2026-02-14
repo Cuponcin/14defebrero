@@ -30,7 +30,7 @@ body{
     justify-content:center;
     align-items:center;
     background:linear-gradient(135deg,#ff9ecf,#ff4fa3);
-    font-size:1.4em;
+    font-size:1.3em;
     text-align:center;
     cursor:pointer;
     z-index:5;
@@ -75,7 +75,6 @@ h1{
     border-radius:20px;
     margin-top:20px;
     box-shadow:0 0 25px rgba(255,255,255,0.6);
-    transition:opacity 1s ease;
 }
 
 /* BUTTONS */
@@ -92,7 +91,6 @@ button{
 #yes{background:#ff007f;color:white;}
 #no{background:white;color:#ff007f;}
 
-/* STARS */
 .star{
     position:absolute;
     width:2px;
@@ -103,16 +101,6 @@ button{
 @keyframes blink{
     from{opacity:0.2;}
     to{opacity:1;}
-}
-
-/* RING */
-.ring{
-    font-size:60px;
-    animation:ringPop 1s ease forwards;
-}
-@keyframes ringPop{
-    from{transform:scale(0);opacity:0;}
-    to{transform:scale(1);opacity:1;}
 }
 
 canvas{
@@ -152,7 +140,7 @@ allow="autoplay">
 
 <script>
 
-/* INTRO CLICK */
+/* INTRO */
 document.getElementById("intro").addEventListener("click",()=>{
     document.getElementById("intro").style.display="none";
     document.getElementById("card").style.display="block";
@@ -160,7 +148,7 @@ document.getElementById("intro").addEventListener("click",()=>{
 });
 
 /* STARS */
-for(let i=0;i<80;i++){
+for(let i=0;i<70;i++){
     let star=document.createElement("div");
     star.classList.add("star");
     star.style.top=Math.random()*100+"vh";
@@ -168,17 +156,42 @@ for(let i=0;i<80;i++){
     document.body.appendChild(star);
 }
 
-/* TYPEWRITER */
-const message="Desde que llegaste a mi vida todo es más lindo ✨\nMe hiciste mejor persona 🥹\nMe enseñaste a amar más profundo 💖\nQuiero un futuro entero con vos 👑💕\n\nMi princesita...\n¿Querés ser mi San Valentín? 💍💘";
+/* MENSAJES */
+const introMessage="Desde que llegaste a mi vida todo es más lindo ✨\nMe hiciste mejor persona 🥹\nQuiero un futuro entero con vos 👑💕";
 
+const letterMessage="Tantos años, tantos momentos, tantos recuerdos...\nEsta página la hice desde cero.\nPerdón por no hablarte, pero quería hacerte algo especial.\n\nSos la personita más linda del mundo.\nLa más compañera.\nLa que cambió para que la relación funcione.\nLa mujer con la que sueño vivir juntos y compartir el día a día.\n\nSos el amor de mi vida.\nNo me falles nunca.\nPrometo llevarte a la gloria junto a mi lado.\n\nSos el ser más perfecto.\nLa princesa más hermosa.\nEl paisaje más lindo que pudieron ver mis ojos.\n\nGracias por tantas cosas.\nMañana va a ser un gran día.\nTe va a encantar todo.\n\nCon mucho amor...\nTu gordo 💖";
+
+const finalQuestion="\nMi princesita...\n¿Querés ser mi San Valentín? 💍💘";
+
+let stage=0;
 let i=0;
+let currentText=introMessage;
+
 function typeWriter(){
-    if(i<message.length){
-        document.getElementById("text").innerHTML+=message.charAt(i)==="\n"?"<br>":message.charAt(i);
+    if(i<currentText.length){
+        document.getElementById("text").innerHTML+=currentText.charAt(i)==="\n"?"<br>":currentText.charAt(i);
         i++;
-        setTimeout(typeWriter,40);
+        setTimeout(typeWriter,35);
     }else{
-        document.getElementById("buttons").style.display="block";
+        if(stage===0){
+            setTimeout(()=>{
+                document.getElementById("text").innerHTML="";
+                currentText=letterMessage;
+                i=0;
+                stage=1;
+                typeWriter();
+            },3000);
+        }else if(stage===1){
+            setTimeout(()=>{
+                document.getElementById("text").innerHTML="";
+                currentText=finalQuestion;
+                i=0;
+                stage=2;
+                typeWriter();
+            },4000);
+        }else{
+            document.getElementById("buttons").style.display="block";
+        }
     }
 }
 typeWriter();
@@ -206,7 +219,7 @@ no.addEventListener("click",()=>{
 
 yes.addEventListener("click",()=>{
     document.getElementById("card").innerHTML=
-    "<div class='ring'>💍</div><h1>Sabía que ibas a decir que sí 🥹💖</h1><p>Te amo con todo mi corazón mi princesita 👑💕</p>";
+    "<h1>Sabía que ibas a decir que sí 🥹💖</h1><p>Te amo con todo mi corazón mi princesita 👑💕</p>";
     startFireworks();
 });
 
